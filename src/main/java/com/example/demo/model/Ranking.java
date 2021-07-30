@@ -5,24 +5,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class Partida{
+@NoArgsConstructor
+@AllArgsConstructor
+public class Ranking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate data;
+    private Double porcentagem;
 
-    @ManyToMany
-    private List<Jogador> jogador;
-
-
+    @OneToOne
+    private Jogador jogador;
 
 }

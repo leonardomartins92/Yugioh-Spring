@@ -5,24 +5,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class Partida{
+public class Jogada {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate data;
+    @ManyToOne
+    private Carta carta;
 
-    @ManyToMany
-    private List<Jogador> jogador;
+    @ManyToOne
+    private Jogador jogador;
 
-
+    @ManyToOne
+    private Partida partida;
 
 }

@@ -21,7 +21,6 @@ public class Jogador {
     private String cpf;
     private String nome;
     private String email;
-    private String senha;
     private Integer partidasJogadas;
     private Integer partidasGanhas;
 }
