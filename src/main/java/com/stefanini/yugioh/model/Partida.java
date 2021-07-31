@@ -1,6 +1,5 @@
-package com.example.demo.model;
+package com.stefanini.yugioh.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Partida{
@@ -23,6 +21,9 @@ public class Partida{
     @ManyToMany
     private List<Jogador> jogador;
 
-
-
+    public Partida(Long id, List<Jogador> jogador) {
+        this.id = id;
+        this.jogador = jogador;
+        this.data = LocalDate.now();
+    }
 }
