@@ -14,7 +14,7 @@ public class CartaDto {
     private Long id;
 
     @NotBlank(message = "Please add card name")
-    @Size(min = 3, max=45)
+    @Size(min = 3, max=45, message = "Name size must be between 3 and 45")
     private String nome;
 
     @Size(max=256)

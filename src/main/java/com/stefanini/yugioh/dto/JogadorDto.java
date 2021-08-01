@@ -16,15 +16,15 @@ public class JogadorDto {
 
     private Long id;
 
-    @CPF
+    @CPF(message = "Invalid CPF")
     @NotBlank
     private String cpf;
 
-    @NotBlank
-    @Size(min = 3, max = 45)
+    @NotBlank(message = "Name cannot be blank")
+    @Size(min = 3, max = 45, message = "Name size must be between 3 and 45")
     private String nome;
 
-    @Email
+    @Email(message = "Please, insert a valid email")
     private String email;
 
 }
