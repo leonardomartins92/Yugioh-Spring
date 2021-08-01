@@ -5,18 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class JogadaDto {
+public class PartidaDto {
 
     private Long id;
 
-    @JsonProperty("cardId")
-    private Long cartaId;
+    @JsonProperty("plays")
+    private List<JogadaDto> jogadas;
 
-    @JsonProperty("playerId")
-    private Long jogadorId;
+    @JsonProperty("players")
+    private List<JogadorDto> jogador;
 
-    private Long partidaId;
+
 }

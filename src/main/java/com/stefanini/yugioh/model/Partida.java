@@ -5,10 +5,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Data
 public class Partida{
 
@@ -21,9 +21,8 @@ public class Partida{
     @ManyToMany
     private List<Jogador> jogador;
 
-    public Partida(Long id, List<Jogador> jogador) {
-        this.id = id;
-        this.jogador = jogador;
-        this.data = LocalDate.now();
+    public Partida() {
+         this.data = LocalDate.now();
+
     }
 }
