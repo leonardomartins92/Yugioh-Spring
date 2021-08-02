@@ -58,7 +58,7 @@ public class CartaController {
        }
         cartaDto.setId(id);
         Carta cartaAtualizada =  cartaService.save(mapper.toModel(cartaDto));
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(mapper.toDTO(cartaAtualizada));
     }
 

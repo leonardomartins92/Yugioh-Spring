@@ -27,4 +27,7 @@ public class JogadorDto {
     @Email(message = "Please, insert a valid email")
     private String email;
 
+    private Integer partidasJogadas;
+    private Integer partidasGanhas;
+
 }

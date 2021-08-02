@@ -1,5 +1,6 @@
 package com.stefanini.yugioh.builder;
 
+import com.stefanini.yugioh.dto.CartaDto;
 import com.stefanini.yugioh.model.Carta;
 import lombok.Builder;
 
@@ -23,8 +24,8 @@ public class CartaBuilder {
     @Builder.Default
     private String imagemSrc = "c://";
 
-    public Carta cartaModel(){
-        return new Carta(id,
+    public CartaDto cartaDto(){
+        return new CartaDto(id,
                 nome,
                 detalhes,
                 atributoAtaque,

@@ -1,5 +1,6 @@
 package com.stefanini.yugioh.builder;
 
+import com.stefanini.yugioh.dto.JogadorDto;
 import com.stefanini.yugioh.model.Jogador;
 import com.stefanini.yugioh.model.Partida;
 import lombok.Builder;
@@ -24,8 +25,8 @@ public class JogadorBuilder {
     @Builder.Default
     private Integer partidasGanhas = 2;
 
-    public Jogador jogadorModel(){
-        return new Jogador(id,
+    public JogadorDto jogadorDto(){
+        return new JogadorDto(id,
                 cpf,
                 nome,
                 email,

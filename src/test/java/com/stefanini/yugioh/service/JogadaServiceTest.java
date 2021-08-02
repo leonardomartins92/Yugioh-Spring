@@ -1,6 +1,7 @@
 package com.stefanini.yugioh.service;
 
 import com.stefanini.yugioh.builder.JogadaBuilder;
+import com.stefanini.yugioh.dto.JogadaDto;
 import com.stefanini.yugioh.mapper.JogadaMapper;
 import com.stefanini.yugioh.model.Jogada;
 import com.stefanini.yugioh.repository.JogadaRepository;
@@ -35,7 +36,8 @@ class JogadaServiceTest {
     @DisplayName("Jogada deve ser Salva")
     void saveCard() {
         // given
-        Jogada jogadaParaSalvar = JogadaBuilder.builder().build().jogadaModel();
+        JogadaDto jogadaDto = JogadaBuilder.builder().build().jogadaDto();
+        Jogada jogadaParaSalvar = jogadaMapper.toModel(jogadaDto);
 
         // when
         when(jogadaRepository.save(jogadaParaSalvar)).thenReturn(jogadaParaSalvar);
@@ -51,7 +53,8 @@ class JogadaServiceTest {
     @DisplayName("Deve retornar lista de jogadas")
     void getAll(){
         //given
-        Jogada jogadaEsperada = JogadaBuilder.builder().build().jogadaModel();
+        JogadaDto jogadaDto = JogadaBuilder.builder().build().jogadaDto();
+        Jogada jogadaEsperada = jogadaMapper.toModel(jogadaDto);
 
         //when
         when(jogadaRepository.findAll()).thenReturn(List.of(jogadaEsperada));
@@ -79,7 +82,8 @@ class JogadaServiceTest {
     @DisplayName("Deve retornar uma jogada")
     void getOne(){
         //given
-        Jogada jogadaEsperada = JogadaBuilder.builder().build().jogadaModel();
+        JogadaDto jogadaDto = JogadaBuilder.builder().build().jogadaDto();
+        Jogada jogadaEsperada = jogadaMapper.toModel(jogadaDto);
 
         //when
         when(jogadaRepository.findById(1L)).thenReturn(Optional.of(jogadaEsperada));
@@ -107,7 +111,8 @@ class JogadaServiceTest {
     @DisplayName("Deve deletar uma jogada")
     void deleteOne(){
         //given
-        Jogada jogadaParaDeletar = JogadaBuilder.builder().build().jogadaModel();
+        JogadaDto jogadaDto = JogadaBuilder.builder().build().jogadaDto();
+        Jogada jogadaParaDeletar = jogadaMapper.toModel(jogadaDto);
 
         //when
         doNothing().when(jogadaRepository).deleteById(jogadaParaDeletar.getId());

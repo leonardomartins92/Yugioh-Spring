@@ -1,6 +1,7 @@
 package com.stefanini.yugioh.service;
 
 import com.stefanini.yugioh.builder.JogadorBuilder;
+import com.stefanini.yugioh.dto.JogadorDto;
 import com.stefanini.yugioh.mapper.JogadorMapper;
 import com.stefanini.yugioh.model.Jogador;
 import com.stefanini.yugioh.repository.JogadorRepository;
@@ -35,7 +36,8 @@ class JogadorServiceTest {
     @DisplayName("Jogador deve ser Salva")
     void saveCard() {
         // given
-        Jogador jogadorParaSalvar = JogadorBuilder.builder().build().jogadorModel();
+        JogadorDto jogadorDto = JogadorBuilder.builder().build().jogadorDto();
+        Jogador jogadorParaSalvar = jogadorMapper.toModel(jogadorDto);
 
         // when
         when(jogadorRepository.save(jogadorParaSalvar)).thenReturn(jogadorParaSalvar);
@@ -51,7 +53,8 @@ class JogadorServiceTest {
     @DisplayName("Deve retornar lista de jogadors")
     void getAll(){
         //given
-        Jogador jogadorEsperada = JogadorBuilder.builder().build().jogadorModel();
+        JogadorDto jogadorDto = JogadorBuilder.builder().build().jogadorDto();
+        Jogador jogadorEsperada = jogadorMapper.toModel(jogadorDto);
 
         //when
         when(jogadorRepository.findAll()).thenReturn(List.of(jogadorEsperada));
@@ -79,7 +82,8 @@ class JogadorServiceTest {
     @DisplayName("Deve retornar uma jogador")
     void getOne(){
         //given
-        Jogador jogadorEsperada = JogadorBuilder.builder().build().jogadorModel();
+        JogadorDto jogadorDto = JogadorBuilder.builder().build().jogadorDto();
+        Jogador jogadorEsperada = jogadorMapper.toModel(jogadorDto);
 
         //when
         when(jogadorRepository.findById(1L)).thenReturn(Optional.of(jogadorEsperada));
@@ -107,7 +111,8 @@ class JogadorServiceTest {
     @DisplayName("Deve deletar uma jogador")
     void deleteOne(){
         //given
-        Jogador jogadorParaDeletar = JogadorBuilder.builder().build().jogadorModel();
+        JogadorDto jogadorDto = JogadorBuilder.builder().build().jogadorDto();
+        Jogador jogadorParaDeletar = jogadorMapper.toModel(jogadorDto);
 
         //when
         doNothing().when(jogadorRepository).deleteById(jogadorParaDeletar.getId());

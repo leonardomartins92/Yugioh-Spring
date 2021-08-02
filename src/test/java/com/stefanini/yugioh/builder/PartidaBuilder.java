@@ -1,20 +1,23 @@
 package com.stefanini.yugioh.builder;
 
-import com.stefanini.yugioh.model.Partida;
+import com.stefanini.yugioh.dto.JogadaDto;
+import com.stefanini.yugioh.dto.JogadorDto;
+import com.stefanini.yugioh.dto.PartidaDto;
 import lombok.Builder;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Builder
 public class PartidaBuilder {
     @Builder.Default
     private Long id = 1L;
 
-    @Builder.Default
-    private LocalDate data = LocalDate.now();
+    private List<JogadaDto> jogadas;
 
-    public Partida partidaModel(){
-        return new Partida();
+    private List<JogadorDto> jogador;
+
+    public PartidaDto partidaDTO(){
+        return new PartidaDto();
     }
 
 }

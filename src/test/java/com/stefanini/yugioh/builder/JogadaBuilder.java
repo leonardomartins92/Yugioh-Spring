@@ -1,5 +1,6 @@
 package com.stefanini.yugioh.builder;
 
+import com.stefanini.yugioh.dto.JogadaDto;
 import com.stefanini.yugioh.model.Carta;
 import com.stefanini.yugioh.model.Jogada;
 import com.stefanini.yugioh.model.Jogador;
@@ -14,16 +15,16 @@ public class JogadaBuilder {
     private Long id = 1L;
 
     @Builder.Default
-    private Carta carta = new Carta();
+    private Long cartaId = 1L;
 
     @Builder.Default
-    private Jogador jogador = new Jogador();
+    private Long jogadorId = 1L;
 
     @Builder.Default
-    private Partida partida = new Partida();
+    private Long partidaId = 1L;
 
-    public Jogada jogadaModel(){
-        return new Jogada();
+    public JogadaDto jogadaDto(){
+        return new JogadaDto();
     }
 
 }

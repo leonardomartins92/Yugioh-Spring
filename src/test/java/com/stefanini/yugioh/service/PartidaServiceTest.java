@@ -1,6 +1,7 @@
 package com.stefanini.yugioh.service;
 
 import com.stefanini.yugioh.builder.PartidaBuilder;
+import com.stefanini.yugioh.dto.PartidaDto;
 import com.stefanini.yugioh.mapper.PartidaMapper;
 import com.stefanini.yugioh.model.Partida;
 import com.stefanini.yugioh.repository.PartidaRepository;
@@ -26,7 +27,7 @@ class PartidaServiceTest {
     @Mock
     private PartidaRepository partidaRepository;
 
-    private PartidaMapper partidaMapper = PartidaMapper.getInstance();
+    private final PartidaMapper partidaMapper = PartidaMapper.getInstance();
 
     @InjectMocks
     private PartidaService partidaService;
@@ -35,7 +36,8 @@ class PartidaServiceTest {
     @DisplayName("Partida deve ser Salva")
     void saveCard() {
         // given
-        Partida partidaParaSalvar = PartidaBuilder.builder().build().partidaModel();
+        PartidaDto partidaDto = PartidaBuilder.builder().build().partidaDTO();
+        Partida partidaParaSalvar = partidaMapper.toModel(partidaDto);
 
         // when
         when(partidaRepository.save(partidaParaSalvar)).thenReturn(partidaParaSalvar);
@@ -51,7 +53,8 @@ class PartidaServiceTest {
     @DisplayName("Deve retornar lista de partidas")
     void getAll(){
         //given
-        Partida partidaEsperada = PartidaBuilder.builder().build().partidaModel();
+        PartidaDto partidaDto = PartidaBuilder.builder().build().partidaDTO();
+        Partida partidaEsperada = partidaMapper.toModel(partidaDto);
 
         //when
         when(partidaRepository.findAll()).thenReturn(List.of(partidaEsperada));
@@ -79,7 +82,8 @@ class PartidaServiceTest {
     @DisplayName("Deve retornar uma partida")
     void getOne(){
         //given
-        Partida partidaEsperada = PartidaBuilder.builder().build().partidaModel();
+        PartidaDto partidaDto = PartidaBuilder.builder().build().partidaDTO();
+        Partida partidaEsperada = partidaMapper.toModel(partidaDto);
 
         //when
         when(partidaRepository.findById(1L)).thenReturn(Optional.of(partidaEsperada));
@@ -107,7 +111,8 @@ class PartidaServiceTest {
     @DisplayName("Deve deletar uma partida")
     void deleteOne(){
         //given
-        Partida partidaParaDeletar = PartidaBuilder.builder().build().partidaModel();
+        PartidaDto partidaDto = PartidaBuilder.builder().build().partidaDTO();
+        Partida partidaParaDeletar = partidaMapper.toModel(partidaDto);
 
         //when
         doNothing().when(partidaRepository).deleteById(partidaParaDeletar.getId());

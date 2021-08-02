@@ -1,6 +1,7 @@
 package com.stefanini.yugioh.service;
 
 import com.stefanini.yugioh.builder.CartaBuilder;
+import com.stefanini.yugioh.dto.CartaDto;
 import com.stefanini.yugioh.mapper.CartaMapper;
 import com.stefanini.yugioh.model.Carta;
 import com.stefanini.yugioh.repository.CartaRepository;
@@ -28,16 +29,17 @@ class CartaServiceTest {
     @Mock
     private CartaRepository cartaRepository;
 
-    private CartaMapper cartaMapper = CartaMapper.getInstance();
-
     @InjectMocks
     private CartaService cartaService;
+
+    private CartaMapper cartaMapper = CartaMapper.getInstance();
 
     @Test
     @DisplayName("Carta deve ser Salva")
     void saveCard() {
         // given
-        Carta cartaParaSalvar = CartaBuilder.builder().build().cartaModel();
+        CartaDto cartaDto = CartaBuilder.builder().build().cartaDto();
+        Carta cartaParaSalvar = cartaMapper.toModel(cartaDto);
 
         // when
         when(cartaRepository.save(cartaParaSalvar)).thenReturn(cartaParaSalvar);
@@ -53,7 +55,8 @@ class CartaServiceTest {
     @DisplayName("Deve retornar lista de cartas")
     void getAll(){
         //given
-        Carta cartaEsperada = CartaBuilder.builder().build().cartaModel();
+        CartaDto cartaDto = CartaBuilder.builder().build().cartaDto();
+        Carta cartaEsperada = cartaMapper.toModel(cartaDto);
 
         //when
         when(cartaRepository.findAll()).thenReturn(List.of(cartaEsperada));
@@ -81,7 +84,8 @@ class CartaServiceTest {
     @DisplayName("Deve retornar uma carta")
     void getOne(){
         //given
-        Carta cartaEsperada = CartaBuilder.builder().build().cartaModel();
+        CartaDto cartaDto = CartaBuilder.builder().build().cartaDto();
+        Carta cartaEsperada = cartaMapper.toModel(cartaDto);
 
         //when
         when(cartaRepository.findById(1L)).thenReturn(Optional.of(cartaEsperada));
@@ -109,7 +113,8 @@ class CartaServiceTest {
     @DisplayName("Deve deletar uma carta")
     void deleteOne(){
         //given
-        Carta cartaParaDeletar = CartaBuilder.builder().build().cartaModel();
+        CartaDto cartaDto = CartaBuilder.builder().build().cartaDto();
+        Carta cartaParaDeletar = cartaMapper.toModel(cartaDto);
 
         //when
         doNothing().when(cartaRepository).deleteById(cartaParaDeletar.getId());

@@ -52,11 +52,11 @@ public class JogadorController {
     public ResponseEntity update(@RequestBody @Valid JogadorDto jogadorDto, @PathVariable Long id){
        Optional<Jogador> jogadorSalva = jogadorService.getOne(id);
        if(jogadorSalva.isEmpty()){
-           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Card not Found");
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Jogador not Found");
        }
         jogadorDto.setId(id);
         Jogador jogadorAtualizada =  jogadorService.save(mapper.toModel(jogadorDto));
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(mapper.toDTO(jogadorAtualizada));
     }
 
