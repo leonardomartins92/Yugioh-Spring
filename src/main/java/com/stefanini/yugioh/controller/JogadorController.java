@@ -34,7 +34,7 @@ public class JogadorController {
     public ResponseEntity getOne(@PathVariable Long id){
         Optional<Jogador> jogador = jogadorService.getOne(id);
         if(jogador.isEmpty()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Card not found");
         }
         return ResponseEntity.status(HttpStatus.OK)

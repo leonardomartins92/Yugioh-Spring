@@ -160,7 +160,7 @@ class CartaControllerTest {
         // then
         mockMvc.perform(MockMvcRequestBuilders.get(API_URL_PATH + "/" + INVALID_ID)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
 
     }
 

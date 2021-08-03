@@ -15,9 +15,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/api/v1/cards")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CartaController {
@@ -36,7 +35,7 @@ public class CartaController {
     public ResponseEntity getOne(@PathVariable Long id){
         Optional<Carta> carta = cartaService.getOne(id);
         if(carta.isEmpty()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Card not found");
         }
         return ResponseEntity.status(HttpStatus.OK)
