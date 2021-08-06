@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class JogadorService {
+public class JogadorService implements IService<Jogador> {
 
     private final JogadorRepository jogadorRepository;
 

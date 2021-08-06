@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class PartidaService {
+public class PartidaService implements IService<Partida>{
     
     private final PartidaRepository partidaRepository;
 
