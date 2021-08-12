@@ -4,6 +4,8 @@ import com.stefanini.yugioh.model.Jogador;
 import com.stefanini.yugioh.repository.JogadorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class JogadorService implements IService<Jogador> {
 
     private final JogadorRepository jogadorRepository;
 
-    public List<Jogador> getAll(){
-        return jogadorRepository.findAll();
+    public Page<Jogador> getAll(Pageable pageable){
+        return jogadorRepository.findAll(pageable);
     }
 
     public Optional<Jogador> getOne(Long id){

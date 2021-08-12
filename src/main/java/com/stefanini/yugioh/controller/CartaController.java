@@ -5,14 +5,13 @@ import com.stefanini.yugioh.mapper.CartaMapper;
 import com.stefanini.yugioh.model.Carta;
 import com.stefanini.yugioh.service.CartaService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin
@@ -25,10 +24,9 @@ public class CartaController {
     private final CartaMapper mapper = CartaMapper.getInstance();
 
     @GetMapping
-    public ResponseEntity getAll(){
-        List<Carta> cartas = cartaService.getAll();
+    public ResponseEntity getAll(Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(
-                cartas.stream().map(mapper::toDTO));
+                cartaService.getAll(pageable).stream().map(mapper::toDTO));
     }
 
     @GetMapping("/{id}")

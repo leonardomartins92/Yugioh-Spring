@@ -3,15 +3,18 @@ package com.stefanini.yugioh.controller;
 import com.stefanini.yugioh.builder.JogadorBuilder;
 import com.stefanini.yugioh.dto.JogadorDto;
 import com.stefanini.yugioh.mapper.JogadorMapper;
+import com.stefanini.yugioh.model.Carta;
 import com.stefanini.yugioh.model.Jogador;
 import com.stefanini.yugioh.service.JogadorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -167,9 +170,9 @@ class JogadorControllerTest {
         // given
         JogadorDto jogadorDto = JogadorBuilder.builder().build().jogadorDto();
         Jogador jogador = jogadorMapper.toModel(jogadorDto);
-
+        PageImpl<Jogador> jogadorPage = new PageImpl<>(List.of(jogador));
         //when
-        when(jogadorService.getAll()).thenReturn(List.of(jogador));
+        when(jogadorService.getAll(ArgumentMatchers.any())).thenReturn(jogadorPage);
 
         // then
         mockMvc.perform(MockMvcRequestBuilders.get(API_URL_PATH)

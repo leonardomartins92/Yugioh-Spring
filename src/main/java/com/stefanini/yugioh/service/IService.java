@@ -1,11 +1,14 @@
 package com.stefanini.yugioh.service;
 
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+
 import java.util.Optional;
 
 public interface IService<T> {
-    List<T> getAll();
+    Page<T> getAll(Pageable pageable);
 
     Optional<T> getOne(Long id);
 

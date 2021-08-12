@@ -5,13 +5,17 @@ import com.stefanini.yugioh.dto.CartaDto;
 import com.stefanini.yugioh.mapper.CartaMapper;
 import com.stefanini.yugioh.model.Carta;
 import com.stefanini.yugioh.service.CartaService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,6 +23,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -170,9 +175,10 @@ class CartaControllerTest {
         // given
         CartaDto cartaDto = CartaBuilder.builder().build().cartaDto();
         Carta carta = cartaMapper.toModel(cartaDto);
+        PageImpl<Carta> cartaPage = new PageImpl<>(List.of(carta));
 
         //when
-        when(cartaService.getAll()).thenReturn(List.of(carta));
+        when(cartaService.getAll(ArgumentMatchers.any())).thenReturn(cartaPage);
 
         // then
         mockMvc.perform(MockMvcRequestBuilders.get(API_URL_PATH)

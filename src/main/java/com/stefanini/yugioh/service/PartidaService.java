@@ -4,7 +4,10 @@ import com.stefanini.yugioh.model.Partida;
 import com.stefanini.yugioh.repository.PartidaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +18,8 @@ public class PartidaService implements IService<Partida>{
     
     private final PartidaRepository partidaRepository;
 
-    public List<Partida> getAll(){
-        return partidaRepository.findAll();
+    public Page<Partida> getAll(Pageable pageable){
+        return partidaRepository.findAll(pageable);
     }
 
     public Optional<Partida> getOne(Long id){

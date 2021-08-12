@@ -4,9 +4,10 @@ import com.stefanini.yugioh.model.Carta;
 import com.stefanini.yugioh.repository.CartaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,8 +16,8 @@ public class CartaService implements IService<Carta> {
     
     private final CartaRepository cartaRepository;
 
-    public List<Carta> getAll(){
-        return cartaRepository.findAll();
+    public Page<Carta> getAll(Pageable pageable){
+        return cartaRepository.findAll(pageable);
     }
 
     public Optional<Carta> getOne(Long id){

@@ -8,9 +8,13 @@ import com.stefanini.yugioh.repository.PartidaRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,25 +61,13 @@ class PartidaServiceTest {
         Partida partidaEsperada = partidaMapper.toModel(partidaDto);
 
         //when
-        when(partidaRepository.findAll()).thenReturn(List.of(partidaEsperada));
+        when(partidaRepository.findAll(ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(new PageImpl<>(List.of(partidaEsperada)));
 
         //then
-        List<Partida> partidas = partidaService.getAll();
+        Page<Partida> partidas = partidaService.getAll(PageRequest.of(1,1));
 
-        assertEquals(partidaEsperada, partidas.get(0));
-    }
-
-    @Test
-    @DisplayName("Deve retornar lista vazia")
-    void getEmptyList(){
-
-        //when
-        when(partidaRepository.findAll()).thenReturn(List.of());
-
-        //then
-        List<Partida> partidas = partidaService.getAll();
-
-        assertEquals(List.of(), partidas);
+        assertEquals(partidaEsperada, partidas.toList().get(0));
     }
 
     @Test

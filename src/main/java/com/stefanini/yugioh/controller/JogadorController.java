@@ -6,11 +6,13 @@ import com.stefanini.yugioh.model.Jogador;
 import com.stefanini.yugioh.service.JogadorService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +26,9 @@ public class JogadorController {
     private final JogadorMapper mapper = JogadorMapper.getInstance();
 
     @GetMapping
-    public ResponseEntity getAll(){
-        List<Jogador> jogadors = jogadorService.getAll();
-        return ResponseEntity.status(HttpStatus.OK).body(
-                jogadors.stream().map(mapper::toDTO));
+    public ResponseEntity getAll(Pageable pageable){
+         return ResponseEntity.status(HttpStatus.OK).body(
+                jogadorService.getAll(pageable).stream().map(mapper::toDTO));
     }
 
     @GetMapping("/{id}")

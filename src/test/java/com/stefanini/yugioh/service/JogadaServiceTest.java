@@ -8,9 +8,13 @@ import com.stefanini.yugioh.repository.JogadaRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,26 +61,15 @@ class JogadaServiceTest {
         Jogada jogadaEsperada = jogadaMapper.toModel(jogadaDto);
 
         //when
-        when(jogadaRepository.findAll()).thenReturn(List.of(jogadaEsperada));
+        when(jogadaRepository.findAll(ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(new PageImpl<>(List.of(jogadaEsperada)));
 
         //then
-        List<Jogada> jogadas = jogadaService.getAll();
+        Page<Jogada> jogadas = jogadaService.getAll(PageRequest.of(1,1));
 
-        assertEquals(jogadaEsperada, jogadas.get(0));
+        assertEquals(jogadaEsperada, jogadas.toList().get(0));
     }
 
-    @Test
-    @DisplayName("Deve retornar lista vazia")
-    void getEmptyList(){
-
-        //when
-        when(jogadaRepository.findAll()).thenReturn(List.of());
-
-        //then
-        List<Jogada> jogadas = jogadaService.getAll();
-
-        assertEquals(List.of(), jogadas);
-    }
 
     @Test
     @DisplayName("Deve retornar uma jogada")
