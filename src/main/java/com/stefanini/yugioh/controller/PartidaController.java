@@ -27,7 +27,7 @@ public class PartidaController {
     private final PartidaMapper partidaMapper = PartidaMapper.getInstance();
 
     @PostMapping
-    public ResponseEntity save(@RequestBody @Valid PartidaDto partidaDto){
+    public ResponseEntity<PartidaDto> save(@RequestBody @Valid PartidaDto partidaDto){
 
        Partida novaPartida = partidaService.save(partidaMapper.toModel(partidaDto));
 
