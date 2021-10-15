@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CartaDto {
+public class CartaDto  {
 
     private Long id;
 

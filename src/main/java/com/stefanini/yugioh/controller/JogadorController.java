@@ -3,10 +3,15 @@ package com.stefanini.yugioh.controller;
 import com.stefanini.yugioh.dto.JogadorDto;
 import com.stefanini.yugioh.mapper.JogadorMapper;
 import com.stefanini.yugioh.model.Jogador;
+import com.stefanini.yugioh.resource.JogadorResource;
 import com.stefanini.yugioh.service.JogadorService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +29,7 @@ import java.util.stream.Collectors;
 public class JogadorController {
 
     private final JogadorService jogadorService;
+    private final JogadorResource jogadorResource;
     private final JogadorMapper mapper = JogadorMapper.getInstance();
 
     @GetMapping
@@ -34,13 +40,19 @@ public class JogadorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<JogadorDto> getOne(@PathVariable Long id){
+    public ResponseEntity<EntityModel<JogadorDto>> getOne(@PathVariable Long id){
         Optional<Jogador> jogador = jogadorService.getOne(id);
         if(jogador.isEmpty()){
             return ResponseEntity.notFound().build();
         }
+
+        Link link = jogadorResource.linkToJogador(jogador.get());
+        JogadorDto jogadorDto = mapper.toDTO(jogador.get());
+        EntityModel<JogadorDto> model = EntityModel.of(jogadorDto);
+        model.add(link);
+
         return ResponseEntity.status(HttpStatus.OK)
-                .body(mapper.toDTO(jogador.get()));
+                .body(model);
     }
 
     @PostMapping
